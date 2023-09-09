@@ -1,5 +1,7 @@
-FROM richarvey/nginx-php-fpm:1.9.1
+# Use the official PHP image with PHP 8.1
+FROM php:8.1-fpm
 
+# Copy your Laravel project into the container
 COPY . .
 
 # Image config
@@ -9,12 +11,14 @@ ENV PHP_ERRORS_STDERR 1
 ENV RUN_SCRIPTS 1
 ENV REAL_IP_HEADER 1
 
-# Laravel config
-ENV APP_ENV production
-ENV APP_DEBUG false
-ENV LOG_CHANNEL stderr
+# Set environment variables
+ENV APP_ENV=production
+ENV APP_DEBUG=false
+ENV LOG_CHANNEL=stderr
 
-# Allow composer to run as root
-ENV COMPOSER_ALLOW_SUPERUSER 1
+# Expose port 9000 (PHP-FPM)
+EXPOSE 9000
 
-CMD ["/start.sh"]
+# Start PHP-FPM
+CMD ["php-fpm"]
+
