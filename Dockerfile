@@ -1,5 +1,5 @@
 # Use the official PHP image with PHP 8.1
-FROM php:8.1-fpm
+FROM richarvey/nginx-php-fpm:1.10.4
 
 # Copy your Laravel project into the container
 COPY . .
@@ -16,9 +16,6 @@ ENV APP_ENV=production
 ENV APP_DEBUG=false
 ENV LOG_CHANNEL=stderr
 
-# Expose port 9000 (PHP-FPM)
-EXPOSE 9000
-
 # Start PHP-FPM
-CMD ["php-fpm"]
+CMD ["/start.sh"]
 
